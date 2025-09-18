@@ -1,5 +1,5 @@
 // src/pages/api/contact.ts
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 
@@ -54,9 +54,9 @@ Message: ${message}
     });
 
     return res.status(200).json({ ok: true });
-  } catch (err: any) {
+  } catch (err) {
     console.error("Email send error:", err);
-    return res.status(500).json({ error: "Failed to send email" });
+    const msg = err instanceof Error ? err.message : "Failed to send email";
+    return res.status(500).json({ error: msg });
   }
 }
-

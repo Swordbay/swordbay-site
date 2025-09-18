@@ -1,12 +1,20 @@
 import Link from "next/link";
 import { home } from "@/content/home";
 
+type FooterLink = {
+  path: string;
+  labelJp?: string;
+  labelEn?: string;
+};
+
 export default function Footer() {
   // 容错：没有 footer 或 links 也不报错
-  const linksRaw = home?.footer?.links ?? [];
+  const linksRaw: FooterLink[] = home?.footer?.links ?? [];
 
   // 去重：按 path 去重（避免出现同一个 /legal 被写两次导致 key 冲突）
-  const links = Array.from(new Map(linksRaw.map((l: any) => [l.path, l])).values());
+  const links: FooterLink[] = Array.from(
+    new Map(linksRaw.map((l: FooterLink) => [l.path, l])).values()
+  );
 
   return (
     <footer className="bg-[#0B0C0E] text-white/80 border-t border-white/10">
@@ -25,7 +33,7 @@ export default function Footer() {
               className="hover:underline whitespace-nowrap"
             >
               {/* 如果没有 labelJp/labelEn 时的兜底 */}
-              {l.labelJp ? l.labelJp : (l.labelEn || "リンク")}
+              {l.labelJp ? l.labelJp : l.labelEn || "リンク"}
               {l.labelEn ? ` / ${l.labelEn}` : ""}
             </Link>
           ))}

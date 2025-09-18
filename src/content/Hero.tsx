@@ -1,3 +1,4 @@
+import Image from "next/image";
 <section className="relative min-h-[70vh] flex flex-col justify-center text-white">
   {/* 背景视频 */}
   <video

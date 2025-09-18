@@ -1,5 +1,5 @@
 "use client";
-
+import * as React from "react";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -15,7 +15,11 @@ export default function ContactPage() {
     setError("");
 
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
+    // FormData -> Record<string, string>
+    const data = Object.fromEntries(new FormData(form).entries()) as Record<
+      string,
+      string
+    >;
 
     try {
       const res = await fetch("/api/contact", {
@@ -27,9 +31,10 @@ export default function ContactPage() {
       if (!res.ok) throw new Error(await res.text());
       setState("ok");
       form.reset();
-    } catch (err: any) {
+    } catch (err) {
       setState("error");
-      setError(err?.message || "送信に失敗しました。再度お試しください。");
+      const msg = err instanceof Error ? err.message : "送信に失敗しました。再度お試しください。";
+      setError(msg);
     }
   }
 
