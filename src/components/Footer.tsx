@@ -15,7 +15,7 @@ export default function Footer() {
 
   // 去重：按 path 去重（避免同一个 path 重复导致 key 冲突）
   const links: FooterLink[] = Array.from(
-    new Map(linksRaw.map((l: FooterLink) => [l.path, l])).values()
+    new Map(linksRaw.map((l) => [l.path, l])).values()
   );
 
   return (
