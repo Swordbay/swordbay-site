@@ -1,3 +1,4 @@
+// src/app/contact/page.tsx
 "use client";
 import * as React from "react";
 import { useState } from "react";
@@ -16,10 +17,7 @@ export default function ContactPage() {
 
     const form = e.currentTarget;
     // FormData -> Record<string, string>
-    const data = Object.fromEntries(new FormData(form).entries()) as Record<
-      string,
-      string
-    >;
+    const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
 
     try {
       const res = await fetch("/api/contact", {
@@ -28,13 +26,19 @@ export default function ContactPage() {
         body: JSON.stringify(data),
       });
 
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) {
+        // 尝试取服务端返回文本；如果不是字符串则 fallback
+        const txt = await res.text().catch(() => "");
+        throw new Error(txt || "送信に失敗しました。再度お試しください。");
+      }
+
       setState("ok");
       form.reset();
-    } catch (err) {
+    } catch (err: unknown) {
       setState("error");
-      const msg = err instanceof Error ? err.message : "送信に失敗しました。再度お試しください。";
-      setError(msg);
+      const errorMessage =
+        err instanceof Error ? err.message : "送信に失敗しました。再度お試しください。";
+      setError(errorMessage);
     }
   }
 
@@ -181,9 +185,7 @@ export default function ContactPage() {
 
           {/* メッセージ */}
           <div className="mt-6">
-            <label className="block text-sm text-white/80 mb-2">
-              お問い合わせ内容*
-            </label>
+            <label className="block text-sm text-white/80 mb-2">お問い合わせ内容*</label>
             <textarea
               name="message"
               required
@@ -197,13 +199,15 @@ export default function ContactPage() {
           <div className="mt-6 flex items-center gap-4">
             <button
               disabled={state === "submitting"}
-              className="rounded-lg bg-white text-black px-5 py-2.5 text-sm font-semibold hover:bg-white/90 disabled:opacity-60"
+              className="rounded-lg bg-white text-black px-5 py-2.5 text-sm font-semibold hover:bg白/90 disabled:opacity-60"
             >
               {state === "submitting" ? "送信中…" : "送信"}
             </button>
 
             {state === "ok" && (
-              <span className="text-sm text-emerald-400">送信が完了しました。ありがとうございます。</span>
+              <span className="text-sm text-emerald-400">
+                送信が完了しました。ありがとうございます。
+              </span>
             )}
             {state === "error" && (
               <span className="text-sm text-rose-400">送信に失敗しました: {error}</span>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { home } from "@/content/home";
+import { footer } from "@/content/Footer"; // ✅ 改为引入 Footer 数据
 
 type FooterLink = {
   path: string;
@@ -9,9 +9,9 @@ type FooterLink = {
 
 export default function Footer() {
   // 容错：没有 footer 或 links 也不报错
-  const linksRaw: FooterLink[] = home?.footer?.links ?? [];
+  const linksRaw: FooterLink[] = footer?.links ?? [];
 
-  // 去重：按 path 去重（避免出现同一个 /legal 被写两次导致 key 冲突）
+  // 去重：按 path 去重（避免重复 path 报 key 错误）
   const links: FooterLink[] = Array.from(
     new Map(linksRaw.map((l: FooterLink) => [l.path, l])).values()
   );
@@ -20,14 +20,14 @@ export default function Footer() {
     <footer className="bg-[#0B0C0E] text-white/80 border-t border-white/10">
       <div className="mx-auto max-w-6xl px-6 py-10 text-center space-y-4">
         {/* 免责声明：JP 在前，EN 在后 */}
-        <p className="text-sm">{home.footer.disclaimer.jp}</p>
-        <p className="text-sm">{home.footer.disclaimer.en}</p>
+        <p className="text-sm">{footer.disclaimer.jp}</p>
+        <p className="text-sm">{footer.disclaimer.en}</p>
 
         {/* 链接：日英并列显示，JP 在前 */}
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
           {links.map((l, i) => (
             <Link
-              key={`${l.path}-${i}`} // 即使 path 重复也不会再报警
+              key={`${l.path}-${i}`}
               href={l.path}
               className="hover:underline whitespace-nowrap"
             >
@@ -38,7 +38,8 @@ export default function Footer() {
           ))}
         </div>
 
-        <p className="mt-4 text-xs text-white/60">{home.footer.copyrightJP}</p>
+        {/* 版权信息 */}
+        <p className="mt-4 text-xs text-white/60">{footer.copyrightJP}</p>
       </div>
     </footer>
   );
