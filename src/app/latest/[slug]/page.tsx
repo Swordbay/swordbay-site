@@ -2,7 +2,7 @@ import { latestItems } from "@/content/latest";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-type Props = { params: { slug: string } };
+type RouteParams = { slug: string };
 
 export function generateStaticParams() {
   return latestItems.map((it) => ({ slug: it.slug }));
@@ -10,8 +10,15 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
-export default function LatestDetailPage({ params }: Props) {
-  const item = latestItems.find((x) => x.slug === params.slug);
+export default async function LatestDetailPage({
+  params,
+}: {
+  params: Promise<RouteParams>;
+}) {
+  // 🔑 Next.js 15: params 是 Promise，需要 await
+  const { slug } = await params;
+
+  const item = latestItems.find((x) => x.slug === slug);
   if (!item) return notFound();
 
   return (
