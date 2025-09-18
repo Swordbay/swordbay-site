@@ -27,7 +27,7 @@ export default function ContactPage() {
       });
 
       if (!res.ok) {
-        // 尝试取服务端返回文本；如果不是字符串则 fallback
+        // 尝试读取服务端返回文本；取不到就给默认提示
         const txt = await res.text().catch(() => "");
         throw new Error(txt || "送信に失敗しました。再度お試しください。");
       }
@@ -123,7 +123,7 @@ export default function ContactPage() {
               <select
                 name="reason"
                 required
-                className="w-full rounded-lg bg-black/30 border border-white/15 px-3 py-2 outline-none focus:border-white/30"
+                className="w-full rounded-lg bg黑/30 border border-white/15 px-3 py-2 outline-none focus:border-white/30"
                 defaultValue="一般的なお問い合わせ"
               >
                 <option>一般的なお問い合わせ</option>
@@ -199,7 +199,7 @@ export default function ContactPage() {
           <div className="mt-6 flex items-center gap-4">
             <button
               disabled={state === "submitting"}
-              className="rounded-lg bg-white text-black px-5 py-2.5 text-sm font-semibold hover:bg白/90 disabled:opacity-60"
+              className="rounded-lg bg-white text-black px-5 py-2.5 text-sm font-semibold hover:bg-white/90 disabled:opacity-60"
             >
               {state === "submitting" ? "送信中…" : "送信"}
             </button>
