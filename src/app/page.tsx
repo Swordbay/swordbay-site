@@ -1,7 +1,8 @@
+// src/app/page.tsx
 import Hero from "@/components/Hero";
 import HighlightBar from "@/components/HighlightBar";
 
-export default function Home() {
+export default function Page() {
   return (
     <main className="min-h-screen bg-[#0B0C0E] text-white">
       <div className="pt-16">

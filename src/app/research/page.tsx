@@ -1,6 +1,7 @@
 // src/app/research/page.tsx
 "use client";
 
+import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 
 export default function ResearchPage() {
@@ -402,9 +403,16 @@ export default function ResearchPage() {
               <summary className="list-none cursor-pointer">
                 {/* 手机竖排 / 桌面横排 */}
                 <div className="p-5 flex flex-col md:flex-row md:items-center gap-5">
-                  {/* 图片 */}
+                  {/* 图片（改用 next/image） */}
                   <div className="relative mx-auto md:mx-0 shrink-0 w-52 h-52 sm:w-60 sm:h-60 rounded-2xl overflow-hidden border border-white/10 bg-black/30">
-                    <img src={it.img} alt={it.titleEn} className="w-full h-full object-cover" />
+                    <Image
+                      src={it.img}
+                      alt={it.titleEn}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 240px"
+                      priority={false}
+                    />
                   </div>
 
                   {/* 标题区 */}
@@ -454,7 +462,7 @@ export default function ResearchPage() {
                           {it.pitfallsJp?.map((p, i) => <li key={`pit-jp-${it.key}-${i}`}>{p}</li>)}
                         </ul>
                       </div>
-                      <div className="rounded-lg bg-white/[0.03] border border-white/10 p-3">
+                      <div className="rounded-lg bg白/[0.03] border border-white/10 p-3">
                         <div className="text-xs uppercase tracking-wide text-white/60">Pitfalls</div>
                         <ul className="mt-2 list-disc pl-5 space-y-1">
                           {it.pitfallsEn?.map((p, i) => <li key={`pit-en-${it.key}-${i}`}>{p}</li>)}

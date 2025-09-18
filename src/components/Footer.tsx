@@ -1,6 +1,8 @@
+// src/components/Footer.tsx
 import Link from "next/link";
-import { footer } from "@/content/Footer"; // ✅ 改为引入 Footer 数据
+import { footer } from "@/content/Footer"; // ✅ 引入 Footer 数据
 
+// 定义 FooterLink 类型，避免 any
 type FooterLink = {
   path: string;
   labelJp?: string;
@@ -11,7 +13,7 @@ export default function Footer() {
   // 容错：没有 footer 或 links 也不报错
   const linksRaw: FooterLink[] = footer?.links ?? [];
 
-  // 去重：按 path 去重（避免重复 path 报 key 错误）
+  // 去重：按 path 去重（避免同一个 path 重复导致 key 冲突）
   const links: FooterLink[] = Array.from(
     new Map(linksRaw.map((l: FooterLink) => [l.path, l])).values()
   );
@@ -27,7 +29,7 @@ export default function Footer() {
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
           {links.map((l, i) => (
             <Link
-              key={`${l.path}-${i}`}
+              key={`${l.path}-${i}`} // 即使 path 重复也不会再报警
               href={l.path}
               className="hover:underline whitespace-nowrap"
             >

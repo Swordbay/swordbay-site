@@ -1,11 +1,13 @@
 // src/content/Footer.tsx
 
+// 链接的类型
 export type FooterLink = {
   path: string;
   labelJp?: string;
   labelEn?: string;
 };
 
+// Footer 内容的类型
 export type FooterContent = {
   disclaimer: {
     jp: string;
@@ -15,6 +17,7 @@ export type FooterContent = {
   copyrightJP: string;
 };
 
+// Footer 内容数据
 export const footer: FooterContent = {
   disclaimer: {
     jp: "本サイトの情報は研究・教育目的であり、投資勧誘や投資助言を目的とするものではありません。",

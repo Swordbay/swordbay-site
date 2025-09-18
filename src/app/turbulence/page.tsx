@@ -26,7 +26,7 @@ export default function TurbulencePage() {
   );
 
   return (
-    <main className="min-h-screen bg-[#0B0C0E] text-white relative overflow-hidden overflow-x-clip">
+    <main className="min-h-screen bg-[#0B0C0E] text白 relative overflow-hidden overflow-x-clip">
       {/* 背景柔和色块（不会造成横向滚动） */}
       <div className="pointer-events-none absolute -top-40 -left-40 h-[280px] w-[280px] sm:h-[320px] sm:w-[320px] rounded-full blur-3xl opacity-25 bg-gradient-to-br from-indigo-600/40 via-purple-600/30 to-pink-500/20" />
       <div className="pointer-events-none absolute -bottom-48 -right-32 h-[320px] w-[320px] sm:h-[380px] sm:w-[380px] rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-cyan-500/30 via-sky-500/25 to-indigo-600/20" />
@@ -53,15 +53,20 @@ export default function TurbulencePage() {
           measurability, observability, and maintainability under market complexity.
         </p>
 
-        {/* 封面图：你的渐变描边 + 玻璃底，不改缩放策略 */}
+        {/* 封面图：渐变描边 + 玻璃底，改为 next/image */}
         <div className="mt-6">
           <div className="rounded-3xl p-[1.5px] bg-gradient-to-r from-indigo-500/60 via-fuchsia-500/50 to-sky-500/60">
             <div className="rounded-[22px] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-sm">
-              <img
-                src="/turbulence/cover.jpg"
-                alt="Turbulence cover"
-                className="w-full h-auto object-cover"
-              />
+              <div className="relative w-full aspect-video">
+                <Image
+                  src="/turbulence/cover.jpg"
+                  alt="Turbulence cover"
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 1000px, 100vw"
+                  priority={false}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -84,7 +89,7 @@ export default function TurbulencePage() {
               の閉ループを中核に据え、観測可能性（Observability）とガバナンスを前提に設計されています。
               外部資金の運用や投資助言は行わず、自己勘定・研究用途に限ります。
             </p>
-            <p className="mt-2 text-white/85 text-[14px] sm:text-[15px] md:text-[15.5px] leading-relaxed">
+            <p className="mt-2 text白/85 text-[14px] sm:text-[15px] md:text-[15.5px] leading-relaxed">
               Turbulence organizes a vertical AI stack and quantitative rules around a closed loop:
               <span className="sm:whitespace-nowrap md:whitespace-nowrap">
                 {" "}
