@@ -1,46 +1,29 @@
-import Link from "next/link";
-import { home } from "@/content/home";
+// src/content/Footer.tsx
 
-type FooterLink = {
+export type FooterLink = {
   path: string;
   labelJp?: string;
   labelEn?: string;
 };
 
-export default function Footer() {
-  // 容错：没有 footer 或 links 也不报错
-  const linksRaw: FooterLink[] = home?.footer?.links ?? [];
+export type FooterContent = {
+  disclaimer: {
+    jp: string;
+    en: string;
+  };
+  links: FooterLink[];
+  copyrightJP: string;
+};
 
-  // 去重：按 path 去重（避免出现同一个 /legal 被写两次导致 key 冲突）
-  const links: FooterLink[] = Array.from(
-    new Map(linksRaw.map((l: FooterLink) => [l.path, l])).values()
-  );
-
-  return (
-    <footer className="bg-[#0B0C0E] text-white/80 border-t border-white/10">
-      <div className="mx-auto max-w-6xl px-6 py-10 text-center space-y-4">
-
-        {/* 免责声明：JP 在前，EN 在后 */}
-        <p className="text-sm">{home.footer.disclaimer.jp}</p>
-        <p className="text-sm">{home.footer.disclaimer.en}</p>
-
-        {/* 链接：日英并列显示，JP 在前 */}
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
-          {links.map((l, i) => (
-            <Link
-              key={`${l.path}-${i}`} // 即使 path 重复也不会再报警
-              href={l.path}
-              className="hover:underline whitespace-nowrap"
-            >
-              {/* 如果没有 labelJp/labelEn 时的兜底 */}
-              {l.labelJp ? l.labelJp : l.labelEn || "リンク"}
-              {l.labelEn ? ` / ${l.labelEn}` : ""}
-            </Link>
-          ))}
-        </div>
-
-        <p className="mt-4 text-xs text-white/60">{home.footer.copyrightJP}</p>
-      </div>
-    </footer>
-  );
-}
+export const footer: FooterContent = {
+  disclaimer: {
+    jp: "本サイトの情報は研究・教育目的であり、投資勧誘や投資助言を目的とするものではありません。",
+    en: "The information on this site is for research and educational purposes only and does not constitute investment advice or solicitation.",
+  },
+  links: [
+    { path: "/legal", labelJp: "免責事項", labelEn: "Legal" },
+    { path: "/privacy", labelJp: "プライバシー", labelEn: "Privacy" },
+    { path: "/contact", labelJp: "お問い合わせ", labelEn: "Contact" },
+  ],
+  copyrightJP: "© 2025 Swordbay合同会社",
+};
