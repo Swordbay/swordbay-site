@@ -1,4 +1,5 @@
 // src/pages/api/contact.ts
+export const runtime = 'nodejs';
 import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 
