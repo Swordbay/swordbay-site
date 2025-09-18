@@ -17,16 +17,17 @@ export type FooterContent = {
   copyrightJP: string;
 };
 
-// Footer 内容数据
+// Footer 内容数据（恢复成你 home.ts 的版本）
 export const footer: FooterContent = {
   disclaimer: {
-    jp: "本サイトの情報は研究・教育目的であり、投資勧誘や投資助言を目的とするものではありません。",
-    en: "The information on this site is for research and educational purposes only and does not constitute investment advice or solicitation.",
+    jp: "本サイトは情報提供のみを目的としており、投資勧誘や営業行為を構成しません。当社は自己勘定でのみ運用します。",
+    en: "Information only. We operate solely with proprietary capital.",
   },
   links: [
-    { path: "/legal", labelJp: "免責事項", labelEn: "Legal" },
+    { path: "/disclosures", labelJp: "免責事項", labelEn: "Disclosures" },
     { path: "/privacy", labelJp: "プライバシー", labelEn: "Privacy" },
-    { path: "/contact", labelJp: "お問い合わせ", labelEn: "Contact" },
+    { path: "/cookies", labelJp: "クッキー", labelEn: "Cookies" },
+    { path: "/legal", labelJp: "会社情報", labelEn: "Company Info" },
   ],
-  copyrightJP: "© 2025 Swordbay合同会社",
+  copyrightJP: "© 2025 Swordbay合同会社. All rights reserved.",
 };
